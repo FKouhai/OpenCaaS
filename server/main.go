@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
   c "github.com/FKouhai/OpenCaaServer/src/pkg/config"
-  ph "github.com/FKouhai/OpenCaaServer/src/pkg/handler"
+  ph "github.com/FKouhai/OpenCaaServer/src/pkg/handlers"
 	"os/signal"
 	"time"
   "fmt"

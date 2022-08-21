@@ -1,11 +1,8 @@
-package handler
+package handlers
 
 import (
   "fmt"
-  "log"
   "net/http"
-  "strconv"
-  "github.com/gorilla/mux"
 )
 
 
