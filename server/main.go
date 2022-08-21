@@ -1,11 +1,11 @@
 package main
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
   c "github.com/FKouhai/OpenCaaServer/src/pkg/config"
   ph "github.com/FKouhai/OpenCaaServer/src/pkg/handlers"
+  l "github.com/FKouhai/OpenCaaServer/src/pkg/logger"
 	"os/signal"
 	"time"
   "fmt"
@@ -23,7 +23,7 @@ func main() {
 	//	sm.Handle("/products", ph)
   config, err := c.NewConfig()
     if err != nil {
-      fmt.Println(err.Error())
+     l.Logger(err)
       return
     }
   
@@ -37,8 +37,8 @@ func main() {
 	go func() {
 		err := s.ListenAndServe()
 		if err != nil {
-			log.Fatal(err)
-		}
+		  l.Logger(err)
+    }
 	}()
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, os.Interrupt)
