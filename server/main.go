@@ -3,28 +3,27 @@ package main
 import (
 	"context"
 	"fmt"
-	c "github.com/FKouhai/OpenCaaServer/src/pkg/config"
-	ph "github.com/FKouhai/OpenCaaServer/src/pkg/handlers"
-	l "github.com/FKouhai/OpenCaaServer/src/pkg/logger"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
+	c "github.com/FKouhai/OpenCaaServer/src/pkg/config"
+	ph "github.com/FKouhai/OpenCaaServer/src/pkg/handlers"
+	l "github.com/FKouhai/OpenCaaServer/src/pkg/logger"
+
 	"github.com/gorilla/mux"
 )
-
 func main() {
 	sm := mux.NewRouter()
+  newLog := l.NewLogger()
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", ph.Index)
-	//putRouter := sm.Methods(http.MethodPut).Subrouter()
-	//putRouter.HandleFunc("/{id:[0-9]+}", ph.UpdateProducts)
-
-	//	sm.Handle("/products", ph)
+  postRouter := sm.Methods(http.MethodPost).Subrouter()
+  postRouter.HandleFunc("/newEntry", ph.Add)
 	config, err := c.NewConfig()
 	if err != nil {
-		l.Logger(err)
+		l.LoggErr(newLog, err)
 		return
 	}
 
@@ -38,7 +37,7 @@ func main() {
 	go func() {
 		err := s.ListenAndServe()
 		if err != nil {
-			l.Logger(err)
+			l.LoggErr(newLog, err)
 		}
 	}()
 	sigChan := make(chan os.Signal)

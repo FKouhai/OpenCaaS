@@ -1,22 +1,25 @@
 package logger
 
 import (
+	"log"
+
 	"go.uber.org/zap"
 )
 
-func Logger(err error) {
-	loggerMgr, _ := NewLogger()
-	zap.ReplaceGlobals(loggerMgr)
-	logger := loggerMgr.Sugar()
-	defer logger.Sync()
-	logger.Info("[ERROR] -> ", err)
+func LoggErr(logger *zap.SugaredLogger, err error) {
+	logger.Error("[ERROR] -> ", err)
 }
 
-func NewLogger() (*zap.Logger, error) {
+func NewLogger() (*zap.SugaredLogger) {
 	cfg := zap.NewProductionConfig()
 	cfg.OutputPaths = []string{
 		"./opencaas.log",
 		"stderr",
 	}
-	return cfg.Build()
+  logger, err := cfg.Build()
+  if err != nil {
+    log.Fatalf("Unable to construct logger: err=%v", err)
+  }
+	zap.ReplaceGlobals(logger)
+	return logger.Sugar()
 }
