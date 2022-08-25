@@ -14,13 +14,16 @@ import (
 
 	"github.com/gorilla/mux"
 )
+
 func main() {
 	sm := mux.NewRouter()
-  newLog := l.NewLogger()
+	newLog := l.NewLogger()
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", ph.Index)
-  postRouter := sm.Methods(http.MethodPost).Subrouter()
-  postRouter.HandleFunc("/newEntry", ph.Add)
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/add", ph.Add)
+	postRouter.HandleFunc("/remove", ph.Remove)
+	getRouter.HandleFunc("/list", ph.List)
 	config, err := c.NewConfig()
 	if err != nil {
 		l.LoggErr(newLog, err)
