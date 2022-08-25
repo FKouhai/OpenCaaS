@@ -17,26 +17,6 @@ type Example struct {
 	Value string `json:"value"`
 }
 
-/*
-	func DbConn(ctx context.Context) clientv3.KV {
-		newLog := l.NewLogger()
-		config, err := c.NewConfig()
-		if err != nil {
-			l.LoggErr(newLog, err)
-			return nil
-		}
-		conn, err := clientv3.New(clientv3.Config{
-			DialTimeout: 120 * time.Second,
-			Endpoints:   []string{config.Etcd},
-		})
-		if err != nil {
-			l.LoggErr(newLog, err)
-		}
-		defer conn.Close()
-		kv := clientv3.NewKV(conn)
-		return kv
-	}
-*/
 var config, _ = c.NewConfig()
 var conn, _ = clientv3.New(clientv3.Config{DialTimeout: 120 * time.Second, Endpoints: []string{config.Etcd}})
 var kv = clientv3.NewKV(conn)

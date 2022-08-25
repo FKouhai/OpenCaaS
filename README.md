@@ -5,7 +5,7 @@ OpenCaaS is a backend platform, that will be used to automatically deploy contai
 - need to have an etcd database instantiated where the information of the nodes and containers will be stored
 - will consists on 2 binaries one for the server and one for the client both will be a webserver to allow an easy of communication and an ease of automation for the deployment and container OPS
 - The server will connect to the etcd db to read and write information in it, such as container name, number of replicas, node where its deployed, etc...
-- In order for the application to work docker server needs to be initialized, to do so follow the next [https://medium.com/@ssmak/how-to-enable-docker-remote-api-on-docker-host-7b73bd3278c6](guide)
+- In order for the application to work docker server needs to be initialized, to do so follow the next [guide](https://medium.com/@ssmak/how-to-enable-docker-remote-api-on-docker-host-7b73bd3278c6)
 
 tl;dr 
 
